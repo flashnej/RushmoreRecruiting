@@ -9,7 +9,7 @@ import NavBar from './containers/NavBar';
 import ContactUs from './component/ContactUs/ContactUs';
 import JobSeakers from './component/JobSeakers/JobSeakers';
 
-import Home from "./containers/Home"
+import Home from "./containers/Home/Home"
 
 function App() {
   return (
