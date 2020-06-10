@@ -12,7 +12,6 @@ class Api::V1::CandidatesController < ApplicationController
       status = {status: 'ok'}
     else
       status = {status: 'error'}
-      binding.pry
     end
 
     if @candidate.save
