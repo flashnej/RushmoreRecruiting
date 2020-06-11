@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import './JobSeekers.scss';
 import { Button, Input } from 'semantic-ui-react';
-import FlashMassage from 'react-flash-message';
 
 const JobSeekers = () => {
   const [firstName, setFirstName] = useState('');
@@ -9,6 +8,7 @@ const JobSeekers = () => {
   const [email, setEmail] = useState('');
   const [resume, setResume] = useState('');
   const [flash, setFlash] = useState('')
+  const [message, setMessage] = useState('');
 
   let formData = new FormData();
 
@@ -30,39 +30,46 @@ const JobSeekers = () => {
       })
       .then((response) => response.json())
       .then((body) => {
+        console.log(body);
         if (body.status ==="ok") {
-          setFlash(
-            <FlashMassage duration={5000}>
-            <p className= "happy-notice">Resume Uploaded successfully</p>
-            </FlashMassage>)
-            setFirstName("")
-            setLastName("")
-            setEmail("")
-          } else {
-            // debugger
-            }
-          })
+          setMessage('Resume Uploaded Successfully');
+          setFirstName("")
+          setLastName("")
+          setEmail("")
+          setResume('')
         } else {
-          setFlash(<FlashMassage duration={5000}>
-            <p className= "sad-notice">File must be a PDF</p>
-            </FlashMassage>)
-          }
+          setMessage('Error on Upload');
         }
+      })
+    } else {
+      setMessage('Resume Must Be Saved as a PDF');
+    }
+  }
 
-        return (
-          <div className='ContactUs'>
-          <h1 className='title'>Contact Us</h1>
-          <h2>Hello</h2>
-          {flash}
-          <div className="inputs">
-          <Input value={firstName} onChange={e => setFirstName(e.target.value)} placeholder='First Name' />
-          <Input value={lastName} onChange={e => setLastName(e.target.value)} placeholder='Last Name' />
-          <Input value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' />
-          <Input type="file" onChange={e => setResume(e.target.files[0])} />
-          </div>
-          <Button onClick={() => handleSubmit()}>Submit</Button>
-          </div>
-        );
-      };
+  const submitMessage = () => {
+    if (message === "Resume Uploaded Successfully") {
+      return("happy-notice")
+    } else if (message === "Resume Must Be Saved as a PDF")  {
+        return ("sad-notice")
+        }
+      }
 
-      export default JobSeekers;
+      return (
+        <div className='ContactUs'>
+        <h1 className='title'>Contact Us</h1>
+        <h2>Hello</h2>
+        <div className={submitMessage()}>
+        {message}
+        </div>
+        <div className="inputs">
+        <Input value={firstName} onChange={e => setFirstName(e.target.value)} placeholder='First Name' />
+        <Input value={lastName} onChange={e => setLastName(e.target.value)} placeholder='Last Name' />
+        <Input value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' />
+        <Input type="file" onChange={e => setResume(e.target.files[0])} />
+        </div>
+        <Button onClick={() => handleSubmit()}>Submit</Button>
+        </div>
+      );
+    };
+
+    export default JobSeekers;
