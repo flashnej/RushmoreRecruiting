@@ -7,7 +7,7 @@ import 'semantic-ui-css/semantic.min.css'
 import AboutUs from './component/AboutUs/AboutUs';
 import NavBar from './containers/NavBar';
 import ContactUs from './component/ContactUs/ContactUs';
-import JobSeakers from './component/JobSeakers/JobSeakers';
+import JobSeekers from './component/JobSeekers/JobSeekers';
 
 import Home from "./containers/Home"
 
@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/contact-us" component={ContactUs}/>
-          <Route exact path="/job-seakers" component={JobSeakers}/>
+          <Route exact path="/job-seekers" component={JobSeekers}/>
         </Switch>
       </BrowserRouter>
     </div>

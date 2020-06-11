@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import './JobSeakers.scss';
+import './JobSeekers.scss';
 import { Button, Input } from 'semantic-ui-react';
 import FlashMassage from 'react-flash-message';
 
-const JobSeakers = () => {
+const JobSeekers = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -65,4 +65,4 @@ const JobSeakers = () => {
         );
       };
 
-      export default JobSeakers;
+      export default JobSeekers;
