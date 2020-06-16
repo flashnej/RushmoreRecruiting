@@ -7,13 +7,13 @@ const JobSeekers = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [resume, setResume] = useState('');
-  const [flash, setFlash] = useState('')
-  const [message, setMessage] = useState('');
+  const [flash, setFlash] = useState('');
+  const [message, setMessage] = useState({message: "", class:""});
 
   let formData = new FormData();
 
   const handleSubmit = () => {
-    if (resume.type === "application/pdf") {
+    if (firstName!=='' && lastName!=='' && email!=='' && resume.type === "application/pdf") {
       const droppackage = JSON.stringify({firstName: firstName, lastName: lastName, email: email});
       formData.append('resume', resume)
       formData.append('info', droppackage)
@@ -21,51 +21,44 @@ const JobSeekers = () => {
         method: "POST",
         body: formData,
       })
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           return response;
         } else {
           return response
         }
       })
-      .then((response) => response.json())
-      .then((body) => {
+      .then(response => response.json())
+      .then(body => {
         console.log(body);
-        if (body.status ==="ok") {
-          setMessage('Resume Uploaded Successfully');
-          setFirstName("")
-          setLastName("")
-          setEmail("")
-          setResume('')
+        if (body.status === 'ok') {
+          setMessage({message: "Resume Uploaded Successfully", class: "happy-notice"})
+          setFirstName('')
+          setLastName('')
+          setEmail('')
+          document.getElementById("resumeField").value = "";
         } else {
-          setMessage('Error on Upload');
+          setMessage({message: "Error on Upload", class: "sad-notice"})
         }
       })
     } else {
-      setMessage('Resume Must Be Saved as a PDF');
+      setMessage({message: "Please fill out all forms and attach resume as a PDF", class: "sad-notice"})
     }
   }
 
-  const submitMessage = () => {
-    if (message === "Resume Uploaded Successfully") {
-      return("happy-notice")
-    } else if (message === "Resume Must Be Saved as a PDF")  {
-        return ("sad-notice")
-        }
-      }
 
       return (
         <div className='ContactUs'>
         <h1 className='title'>Contact Us</h1>
         <h2>Hello</h2>
-        <div className={submitMessage()}>
-        {message}
+        <div className={message.class}>
+        {message.message}
         </div>
         <div className="inputs">
         <Input value={firstName} onChange={e => setFirstName(e.target.value)} placeholder='First Name' />
         <Input value={lastName} onChange={e => setLastName(e.target.value)} placeholder='Last Name' />
         <Input value={email} onChange={e => setEmail(e.target.value)} placeholder='Email' />
-        <Input type="file" onChange={e => setResume(e.target.files[0])} />
+        <Input type="file" id="resumeField" onChange={e => setResume(e.target.files[0])} />
         </div>
         <Button onClick={() => handleSubmit()}>Submit</Button>
         </div>
