@@ -31,7 +31,7 @@ const JobSeekers = () => {
       .then((response) => response.json())
       .then((body) => {
         console.log(body);
-        if (body.status ==="ok") {
+        if (body === 200) {
           setMessage('Resume Uploaded Successfully');
           setFirstName("")
           setLastName("")
@@ -51,8 +51,10 @@ const JobSeekers = () => {
       return("happy-notice")
     } else if (message === "Resume Must Be Saved as a PDF")  {
         return ("sad-notice")
-        }
-      }
+    } else if (message === "Error on Upload") {
+      return ("sad-notice")
+    }
+  }
 
       return (
         <div className='ContactUs'>

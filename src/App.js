@@ -8,6 +8,7 @@ import AboutUs from './component/AboutUs/AboutUs';
 import NavBar from './containers/NavBar';
 import ContactUs from './component/ContactUs/ContactUs';
 import JobSeekers from './component/JobSeekers/JobSeekers';
+import SignIn from './component/SignIn/SignIn'
 
 import Home from "./containers/Home"
 
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/about" component={AboutUs}/>
           <Route exact path="/contact-us" component={ContactUs}/>
           <Route exact path="/job-seekers" component={JobSeekers}/>
+          <Route exact path="/signin" component={SignIn}/>
         </Switch>
       </BrowserRouter>
     </div>
